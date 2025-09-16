@@ -15,7 +15,7 @@ class Zalivanje implements CrudInterface{
                   VALUES (?, ?, ?)";
 
         $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("isd", $data['basta_id'], $data['datum'], $data['kolicina']);
+        $stmt->bind_param("isi", $data['basta_id'], $data['datum'], $data['kolicina']);
 
         return $stmt->execute();
     }
@@ -33,12 +33,13 @@ class Zalivanje implements CrudInterface{
         $query = "
         SELECT
         zalivanje.datum, 
-        zalivanje.kolicina, 
+        zalivanje.kolicina,
+        zalivanje.zalivanje_id, 
         basta.nadimak, 
         biljke.naziv
         FROM zalivanje
-        JOIN basta ON zalivanje.basta_id = basta.basta_id
-        JOIN biljke ON biljke.biljka_id = biljke.biljka_id
+        INNER JOIN basta ON zalivanje.basta_id = basta.basta_id
+        INNER JOIN biljke ON basta.biljka_id = biljke.biljka_id
         WHERE basta.korisnik_id = ?
         ORDER BY zalivanje.datum DESC";
 

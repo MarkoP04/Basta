@@ -83,6 +83,7 @@ class Basta implements CrudInterface{
         biljke.djubrenje_dani,
         biljke.tip_djubriva,
         basta.nadimak,
+        basta.basta_id,
         basta.lokacija,
         basta.datum_dodavanja
         FROM basta

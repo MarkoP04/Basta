@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once '../config/db.php';
-require_once '../classes/Zalivanje.php';
+require_once '../classes/Zdravlje.php';
 require_once '../classes/Basta.php';
 include '../includes/navbar.php';
 
@@ -10,7 +10,7 @@ if (!isset($_SESSION['korisnik_id'])) {
     exit();
 }
 
-$zalivanje = new Zalivanje($conn);
+$zdravlje = new Zdravlje($conn);
 $basta = new Basta($conn);
 $korisnik_id = $_SESSION['korisnik_id'];
 
@@ -18,17 +18,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $data = [
         'basta_id' => $_POST['basta_id'],
         'datum' => date('Y-m-d H:i:s'),
-        'kolicina' => $_POST['kolicina']
+        'simptomi' => $_POST['simptomi'],
+        'akcije' => $_POST['akcije'],
+        'dijagnoza' => $_POST['dijagnoza']
     ];
 
-    $uspesno = $zalivanje->create($data);
+    $uspesno = $zdravlje->create($data);
 
     if ($uspesno) {
-        $_SESSION['success'] = "Zapisnik o zalivanju je uspešno dodat!";
-        header("Location: zalivanje.php");
+        $_SESSION['success'] = "Zapisnik o zdravlju je uspešno dodat!";
+        header("Location: zdravlje.php");
         exit();
     } else {
-        $_SESSION['error'] = "Greška prilikom dodavanja zapisnika o zalivanju.";
+        $_SESSION['error'] = "Greška prilikom dodavanja zapisnika o zdravlju.";
     }
 }
 
@@ -36,7 +38,7 @@ $biljkeKorisnika = $basta->sveBiljkeKorisnika($_SESSION['korisnik_id']);
 ?>
 <head>
   <meta charset="UTF-8">
-  <title>Dodaj zalivanje</title>
+  <title>Dodaj zdravlje</title>
   <link rel="stylesheet" href="../assets/css/style.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -46,7 +48,7 @@ $biljkeKorisnika = $basta->sveBiljkeKorisnika($_SESSION['korisnik_id']);
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card p-4 shadow-sm">
-                    <h2>Dodaj novi zapisnika o zalivanju</h2>
+                    <h2>Dodaj novi zapisnika o zdravlju</h2>
                     <?php if (isset($_SESSION['success'])): ?>
                         <div class="alert alert-success"><?= $_SESSION['success']; unset($_SESSION['success']); ?></div>
                         <?php endif; ?>
@@ -67,10 +69,18 @@ $biljkeKorisnika = $basta->sveBiljkeKorisnika($_SESSION['korisnik_id']);
                                         </select>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="kolicina" class="form-label">Količina vode (npr. 200ml):</label>
-                                        <input type="text" class="form-control" name="kolicina" id="kolicina" required>
+                                        <label for="simptomi" class="form-label">Simptomi:</label>
+                                        <input type="text" class="form-control" name="simptomi" id="simptomi" required>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Dodaj zalivanje</button>
+                                    <div class="mb-3">
+                                        <label for="dijagnoza" class="form-label">Dijagnoza:</label>
+                                        <input type="text" class="form-control" name="dijagnoza" id="dijagnoza" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="akcije" class="form-label">Akcije:</label>
+                                        <input type="text" class="form-control" name="akcije" id="akcije" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Dodaj zdravlje</button>
                                 </form>
                             </div>
                         </div>

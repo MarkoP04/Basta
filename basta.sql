@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 31, 2025 at 06:12 PM
+-- Generation Time: Sep 16, 2025 at 07:28 AM
 -- Server version: 9.1.0
 -- PHP Version: 8.3.14
 
@@ -94,7 +94,14 @@ CREATE TABLE IF NOT EXISTS `djubrenje` (
   `kolicina` int NOT NULL,
   PRIMARY KEY (`djubrenje_id`),
   KEY `basta_id` (`basta_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `djubrenje`
+--
+
+INSERT INTO `djubrenje` (`djubrenje_id`, `basta_id`, `datum`, `tip`, `kolicina`) VALUES
+(1, 5, '2025-09-16 06:37:40', 'tecno npr', 100);
 
 -- --------------------------------------------------------
 
@@ -136,7 +143,15 @@ CREATE TABLE IF NOT EXISTS `zalivanje` (
   `kolicina` int NOT NULL,
   PRIMARY KEY (`zalivanje_id`),
   KEY `basta_id` (`basta_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `zalivanje`
+--
+
+INSERT INTO `zalivanje` (`zalivanje_id`, `basta_id`, `datum`, `kolicina`) VALUES
+(1, 5, '2025-09-16 05:43:33', 100),
+(2, 5, '2025-09-16 05:43:54', 200);
 
 -- --------------------------------------------------------
 
@@ -154,7 +169,14 @@ CREATE TABLE IF NOT EXISTS `zdravlje` (
   `akcije` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`zdravlje_id`),
   KEY `basta_id` (`basta_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `zdravlje`
+--
+
+INSERT INTO `zdravlje` (`zdravlje_id`, `basta_id`, `datum`, `simptomi`, `dijagnoza`, `akcije`) VALUES
+(1, 5, '2025-09-16 07:09:37', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagrtaaaaaaaa', 'da', 'ne');
 
 --
 -- Constraints for dumped tables

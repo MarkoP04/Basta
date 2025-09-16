@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once '../config/db.php';
-require_once '../classes/Zalivanje.php';
+require_once '../classes/Djubrenje.php';
 require_once '../classes/Basta.php';
 include '../includes/navbar.php';
 
@@ -10,7 +10,7 @@ if (!isset($_SESSION['korisnik_id'])) {
     exit();
 }
 
-$zalivanje = new Zalivanje($conn);
+$djubrenje = new Djubrenje($conn);
 $basta = new Basta($conn);
 $korisnik_id = $_SESSION['korisnik_id'];
 
@@ -18,17 +18,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $data = [
         'basta_id' => $_POST['basta_id'],
         'datum' => date('Y-m-d H:i:s'),
+        'tip' => $_POST['tip'],
         'kolicina' => $_POST['kolicina']
     ];
 
-    $uspesno = $zalivanje->create($data);
+    $uspesno = $djubrenje->create($data);
 
     if ($uspesno) {
-        $_SESSION['success'] = "Zapisnik o zalivanju je uspešno dodat!";
-        header("Location: zalivanje.php");
+        $_SESSION['success'] = "Zapisnik o djubrenju je uspešno dodat!";
+        header("Location: djubrenje.php");
         exit();
     } else {
-        $_SESSION['error'] = "Greška prilikom dodavanja zapisnika o zalivanju.";
+        $_SESSION['error'] = "Greška prilikom dodavanja zapisnika o djubrenju.";
     }
 }
 
@@ -36,7 +37,7 @@ $biljkeKorisnika = $basta->sveBiljkeKorisnika($_SESSION['korisnik_id']);
 ?>
 <head>
   <meta charset="UTF-8">
-  <title>Dodaj zalivanje</title>
+  <title>Dodaj djubrenje</title>
   <link rel="stylesheet" href="../assets/css/style.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -46,7 +47,7 @@ $biljkeKorisnika = $basta->sveBiljkeKorisnika($_SESSION['korisnik_id']);
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card p-4 shadow-sm">
-                    <h2>Dodaj novi zapisnika o zalivanju</h2>
+                    <h2>Dodaj novi zapisnika o djubrenju</h2>
                     <?php if (isset($_SESSION['success'])): ?>
                         <div class="alert alert-success"><?= $_SESSION['success']; unset($_SESSION['success']); ?></div>
                         <?php endif; ?>
@@ -67,10 +68,14 @@ $biljkeKorisnika = $basta->sveBiljkeKorisnika($_SESSION['korisnik_id']);
                                         </select>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="kolicina" class="form-label">Količina vode (npr. 200ml):</label>
+                                        <label for="tip" class="form-label">Tip djubriva:</label>
+                                        <input type="text" class="form-control" name="tip" id="tip" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="kolicina" class="form-label">Količina djubriva (npr. 20g):</label>
                                         <input type="text" class="form-control" name="kolicina" id="kolicina" required>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Dodaj zalivanje</button>
+                                    <button type="submit" class="btn btn-primary">Dodaj djubrenje</button>
                                 </form>
                             </div>
                         </div>

@@ -9,16 +9,16 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="index.php">Početna</a>
+          <a class="nav-link" href="/Basta/index.php">Početna</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="pages/moja_basta.php">Moja basta</a>
+          <a class="nav-link" href="/Basta/pages/moja_basta.php">Moja basta</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="pages/kontakt.php">Kontakt</a>
+          <a class="nav-link" href="/Basta/pages/kontakt.php">Kontakt</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="pages/login.php">Prijavi se</a>
+          <a class="nav-link" href="/Basta/pages/login.php">Prijavi se</a>
         </li>
       </ul>
     </div>
